@@ -45,20 +45,18 @@ trasa = []
 suma = 0
 def znajdz_droge(graph, start, cel,):
     global suma
-    while 1:
-        print(suma, end=" ")
+
+    targets = list(graph[start].keys())
+    for target in targets:
         if start == cel:
-            return suma
+            return
         elif start in trasa:
             break
-        else:
-            targets = list(graph[start].keys())
-            for target in targets:
-                print(target, graph[start][target], trasa)
-                trasa.append(start)
-                suma += graph[start][target]
-                znajdz_droge(graph, target, cel)
-print(znajdz_droge(bajtocja, 5, 1))
+        trasa.append(start)
+        suma += graph[start][target]
+        znajdz_droge(graph, target, cel)
+znajdz_droge(bajtocja, 3, 1)
+print(suma)
 """def poslancy(graf):
     cele = [1]
     suma = 0
