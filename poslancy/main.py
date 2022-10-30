@@ -41,30 +41,25 @@ for droga in drogi:
     dodaj_droge(bajtocja, droga)
 print(bajtocja)
 # ================================
-trasa = []
 suma = 0
-def znajdz_droge(graph, start, cel,):
-    global suma
-
-    targets = list(graph[start].keys())
-    for target in targets:
-        if start == cel:
-            return
-        elif start in trasa:
-            break
-        trasa.append(start)
-        suma += graph[start][target]
-        znajdz_droge(graph, target, cel)
-znajdz_droge(bajtocja, 3, 1)
+def znajdz_droge(graph, start, cel, trasa=[]):
+    trasa = trasa + [start]
+    if start == cel:
+        return trasa
+    for wioska in graph[start]:
+        if wioska not in trasa:
+            nowa_trasa = znajdz_droge(graph, wioska, cel, trasa)
+            if nowa_trasa:
+                return nowa_trasa
+    return None
+print(znajdz_droge(bajtocja, 5, 3))
+trasa = znajdz_droge(bajtocja, 5, 3)
+for i in range(len(trasa)-1):
+    suma+= bajtocja[trasa[i]][trasa[i+1]]
+suma*=2
 print(suma)
-"""def poslancy(graf):
-    cele = [1]
-    suma = 0
-    trasa = []
-    for i in range(len(krolewicze)):
-        start = krolewicze[i]
-        for cel in cele:
-            while start != cel:
+def poslancy(graf):
 
 
-poslancy(graph)"""
+
+poslancy(graph)
